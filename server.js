@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+//CONSTANTS TO REQUIRE SERVER DEPENDENCIES
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
@@ -12,6 +13,14 @@ const methodOverride = require('method-override')
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
 
+//DATABASE CONNECTION
+const mongoose = require('mongoose')
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
+const db = mongoose.connection
+db.on('error', error => console.error(error))
+db.once('open', () => console.log('Connected to Mongoose'))
+
+//PASSPORT
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,

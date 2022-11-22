@@ -63,14 +63,13 @@
 
         if (file === '') {
         } else {
-            console.log(file)
+            document.getElementById('qr').innerHTML = "";
             generateQRCode(file);
             document.getElementById('resetQRBtn').style.display = "block";
         }
     };
 
     const generateQRCode = (file) => {
-        console.log(file)
         const qrcode = new QRCode('qr', {
             text: file,
             width: 300,
