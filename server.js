@@ -29,14 +29,14 @@ initializePassport(
 )
 
 const users = [{
-    id: '1668519999893',
-    name: 'Ronan',
-    email: 'ronanp34@gmail.com',
-    password: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
-  }]
+  id: '1668519999893',
+  name: 'Ronan',
+  email: 'ronanp34@gmail.com',
+  password: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
+}]
 
 
-app.use( express.static( "public" ) );
+app.use(express.static("public"));
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
