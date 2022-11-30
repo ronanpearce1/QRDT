@@ -29,15 +29,15 @@
                 <input type="email" class="entry" id="email" name="email" placeholder="Enter Email" required>
             </div>
             <div>
-                <div id="message" style="display: none; font-size: small; text-align: center;">Password must be at least
-                    8 characters with
-                    a capital letter and
-                    a
-                    number!</div>
-                <input type=" password" class="entry" id="password" name="password"
+                <div id="message" style="display: none; font-size: small; text-align: center;">
+                    Password must be at least 8 characters with a capital letter and a number!</div>
+                <input type="password" class="entry" id="password" name="password"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Password" required>
+
+                <input type="password" class="entry" id="confirmPassword" name="password" placeholder="Confirm Password"
+                    required>
             </div>
-            <button type="submit" class="button">Register</button>
+            <button type="submit" id="submit" class="button" style="display: none;">Register</button>
         </form>
         <a href="/login" class="changeForm">Already have an account? Sign in here!</a>
         <br>
@@ -46,15 +46,29 @@
 </body>
 
 <script>
+    //HTML elements declared as constants
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const message = document.getElementById("message");
+    const submit = document.getElementById("submit");
 
-    document.getElementById("password").onmouseover = function () {
-
-        document.getElementById("message").style.display = "block";
+    //Alert user to use certain password format
+    password.onmouseover = function () {
+        message.style.display = "block";
+    }
+    password.onmouseleave = function () {
+        message.style.display = "none";
     }
 
-    document.getElementById("password").onmouseleave = function () {
+    //Check if 2 password fields match
+    confirmPassword.onkeyup = function () {
+        if (confirmPassword.value === password.value) {
+            submit.style.display = "block";
+        }
+        if (confirmPassword.value != password.value) {
+            submit.style.display = "none";
+        }
 
-        document.getElementById("message").style.display = "none";
     }
 
 </script>
