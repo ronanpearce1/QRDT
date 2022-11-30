@@ -29,8 +29,13 @@
                 <input type="email" class="entry" id="email" name="email" placeholder="Enter Email" required>
             </div>
             <div>
-                <input type="password" class="entry" id="password" name="password" placeholder="Enter Password"
-                    required>
+                <div id="message" style="display: none; font-size: small; text-align: center;">Password must be at least
+                    8 characters with
+                    a capital letter and
+                    a
+                    number!</div>
+                <input type=" password" class="entry" id="password" name="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Password" required>
             </div>
             <button type="submit" class="button">Register</button>
         </form>
@@ -39,3 +44,17 @@
         <a href="/info" class="changeForm">Need some help?</a>
     </div>
 </body>
+
+<script>
+
+    document.getElementById("password").onmouseover = function () {
+
+        document.getElementById("message").style.display = "block";
+    }
+
+    document.getElementById("password").onmouseleave = function () {
+
+        document.getElementById("message").style.display = "none";
+    }
+
+</script>
