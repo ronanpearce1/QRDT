@@ -1,0 +1,86 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Comptible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../css/style.ejs'); %>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+            integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div class="container">
+        <figure>
+            <a"><img src="https://i.ibb.co/SmZxC8h/logo.png" class="img" alt="logo" border="0" width="250px"
+                    height="150px"></a>
+        </figure>
+
+        <h2 class="formTitle">Information
+        </h2>
+
+        <form>
+            <p>Welcome to Quick Response Data Transfer</p>
+            <p>This application allows quick file transfers using QR codes! Available on all devices!</p>
+            <p>To begin, you will need to create an account, this takes seconds and is available from the link below,
+                alternatively if you already have an account you can login also from below!
+            </p>
+            <p>Depending on the your device, you can either select a file to upload and generate a QR code, or you can
+                scan a QR code directly to receive your file!</p>
+        </form>
+        <br>
+        <a href="/register" class="changeForm">Don't have an account? Create one here!</a>
+        <p style="text-align: center;">Or</p>
+        <a href="/login" class="changeForm">Already have an account? Sign in here!</a>
+
+    </div>
+</body>
+
+<script>
+    const form = document.getElementById('mainForm');
+    const resetQRBtn = document.getElementById('resetQRBtn');
+    const qr = document.getElementById('qr');
+
+    const onGenerateSubmit = (e) => {
+        e.preventDefault();
+
+        const file = document.getElementById('select').value;
+
+        if (file === '') {
+        } else {
+            document.getElementById('qr').innerHTML = "";
+            generateQRCode(file);
+            document.getElementById('resetQRBtn').style.display = "block";
+        }
+    };
+
+    const generateQRCode = (file) => {
+        const qrcode = new QRCode('qr', {
+            text: file,
+            width: 300,
+            height: 300,
+        });
+    };
+
+
+    form.addEventListener('change', checkForFile => {
+        const file = document.getElementById('select').value;
+        if (file === '') {
+
+        } else {
+            console.log("working");
+            document.getElementById('generate').style.display = "block";
+            document.getElementById('labelForSelect').innerHTML = "Change File";
+        }
+    });
+
+    resetQRBtn.addEventListener('click', clearQR => {
+        document.getElementById('resetQRBtn').style.display = "none";
+        document.getElementById('qr').innerHTML = "";
+    });
+
+    form.addEventListener('submit', onGenerateSubmit);
+</script>

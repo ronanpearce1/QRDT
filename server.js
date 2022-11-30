@@ -83,6 +83,11 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   console.log(users)
 })
 
+app.get('/info', (req, res) => {
+  res.render('info.ejs')
+})
+
+
 app.delete('/logout', (req, res, next) => {
   req.logOut((err) => {
     if (err) {
