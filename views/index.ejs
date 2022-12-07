@@ -37,7 +37,7 @@
                         <% } %>
             </p>
 
-
+            <p style="text-align: center;">Or</p>
             <input id="text" class="entry" type="text" value="" placeholder="Enter URL"><br />
             <div id="qrcode"></div>
 
@@ -117,11 +117,11 @@
         var elText = document.getElementById("text");
 
         if (!elText.value) {
-
+            document.getElementById('qr').style.display = "none";
             elText.focus();
             return;
         }
-
+        document.getElementById('qr').style.display = "flex";
         qrcode.makeCode(elText.value);
     }
 
