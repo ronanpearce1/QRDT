@@ -14,6 +14,8 @@
 
 <body>
     <div class="container">
+
+
         <figure>
             <a"><img src="https://i.ibb.co/SmZxC8h/logo.png" class="img" alt="logo" border="0" width="250px"
                     height="150px"></a>
@@ -35,9 +37,15 @@
                         <% } %>
             </p>
 
+
+            <input id="text" class="entry" type="text" value="" placeholder="Enter URL"><br />
+            <div id="qrcode"></div>
+
+
             <button type="submit" class="generate" id="generate">Generate QR Code</button>
 
             <div id="qr"></div>
+
         </form>
 
         <form id="resetQR">
@@ -47,6 +55,8 @@
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit" class="logoutBtn">Log Out</button>
         </form>
+
+
 
     </div>
 </body>
@@ -59,7 +69,10 @@
     const onGenerateSubmit = (e) => {
         e.preventDefault();
 
+        const reader = new FileReader();
+
         const file = document.getElementById('select').value;
+        console.log(file);
 
         if (file === '') {
         } else {
@@ -83,7 +96,6 @@
         if (file === '') {
 
         } else {
-            console.log("working");
             document.getElementById('generate').style.display = "block";
             document.getElementById('labelForSelect').innerHTML = "Change File";
         }
@@ -95,4 +107,28 @@
     });
 
     form.addEventListener('submit', onGenerateSubmit);
+
+
+
+
+    var qrcode = new QRCode("qr");
+
+    function makeCode() {
+        var elText = document.getElementById("text");
+
+        if (!elText.value) {
+
+            elText.focus();
+            return;
+        }
+
+        qrcode.makeCode(elText.value);
+    }
+
+    makeCode();
+
+    document.querySelector('#text').addEventListener('keypress', function (e) {
+        makeCode();
+
+    });
 </script>

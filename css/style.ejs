@@ -54,10 +54,7 @@
 
     }
 
-    .formTitle {
-        margin-bottom: 2rem;
-        text-align: center;
-    }
+
 
     .form>*:first-child {
         margin-top: 0;
@@ -165,6 +162,15 @@
         text-align: center;
     }
 
+    #qrcode {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+
     .generate {
         display: none;
     }
@@ -184,5 +190,53 @@
         #labelForCapture {
             display: none;
         }
+    }
+
+
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48;
+
+    }
+
+    .material-symbols-outlined:hover {
+        cursor: pointer;
+    }
+
+    .grid {
+        display: flex;
+        width: 100%;
+
+    }
+
+    .grid span {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .grid div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .grid p {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+
+
+    .formTitle {
+        margin-bottom: 2rem;
+        text-align: center;
     }
 </style>
