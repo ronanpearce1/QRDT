@@ -29,10 +29,33 @@
                 <input type="password" class="entry" id="password" name="password" placeholder="Enter password"
                     required>
             </div>
-            <button type="submit" class="button">Login</button>
+            <button type="submit" class="button" id="loginbutton" style="display: none;">Login</button>
         </form>
         <a href="/register" class="changeForm">Don't have an account? Create one here!</a>
         <br>
         <a href="/info" class="changeForm">Need some help?</a>
     </div>
 </body>
+
+<script>
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const submit = document.getElementById("loginbutton");
+
+    function validateLogin() {
+        submit.style.display = "none";
+        if (email.value && password.value) {
+            submit.style.display = "block";
+        } else {
+        }
+    }
+
+    document.querySelector('#email').addEventListener('keyup', function (e) {
+        validateLogin();
+    });
+    document.querySelector('#password').addEventListener('keyup', function (e) {
+        validateLogin();
+    });
+
+
+</script>
