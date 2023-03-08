@@ -15,8 +15,9 @@
                     height="150px"></a>
         </figure>
         <form class="form" id="login" action="/login" method="POST">
-            <h1 class="formTitle">Login</h1>
-            <p class="error">
+            <h1 class="formTitle" id="userTitle">Login</h1>
+            <h1 class="formTitle" id="adminTitle">Admin Login</h1>
+            <p class=" error">
                 <% if (messages.error) { %>
                     <%= messages.error %>
                         <% } %>
@@ -29,8 +30,16 @@
                 <input type="password" class="entry" id="password" name="password" placeholder="Enter password"
                     required>
             </div>
+
+            <div>
+                <input type="text" class="entry" id="adminPassword" name="adminPassword"
+                    placeholder="Enter Admin Password">
+            </div>
             <button type="submit" class="button" id="loginbutton" style="display: none;">Login</button>
         </form>
+        <a id="adminButton" class="changeForm" style="text-align: right; font-size: 15px;">Admin Login</a>
+        <a id="userButton" class="changeForm" style="text-align: right; font-size: 15px;">User Login</a>
+        <br>
         <a href="/register" class="changeForm">Don't have an account? Create one here!</a>
         <br>
         <a href="/info" class="changeForm">Need some help?</a>
@@ -56,6 +65,47 @@
     document.querySelector('#password').addEventListener('keyup', function (e) {
         validateLogin();
     });
+
+
+    const adminPassword = document.getElementById("adminPassword");
+
+    const adminButton = document.getElementById("adminButton");
+    const userButton = document.getElementById("userButton");
+
+    const userTitle = document.getElementById("userTitle");
+    const amdinTitle = document.getElementById("adminTitle");
+
+    adminPassword.style.display = "none";
+    adminButton.style.display = "none";
+    userTitle.style.display = "none";
+
+    if (adminPassword.style.display = "none") {
+        document.querySelector('#adminButton').addEventListener('click', function (e) {
+            adminPassword.style.display = "block";
+
+            adminButton.style.display = "none";
+            userButton.style.display = "block";
+
+            userTitle.style.display = "none";
+            adminTitle.style.display = "block";
+
+        })
+    }
+
+    if (adminPassword.style.display = "block") {
+        document.querySelector('#userButton').addEventListener('click', function (e) {
+            adminPassword.style.display = "none";
+
+            userButton.style.display = "none";
+            adminButton.style.display = "block";
+
+            adminTitle.style.display = "none";
+            userTitle.style.display = "block";
+        })
+    }
+
+
+
 
 
 </script>

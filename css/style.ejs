@@ -72,7 +72,31 @@
         text-align: center;
     }
 
-    .entry {
+    textarea {
+        resize: none;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        overflow: hidden;
+        overflow: auto;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .entry,
+    #users {
         margin-bottom: 1rem;
         display: block;
         width: 100%;
@@ -143,6 +167,12 @@
         text-decoration: underline;
         font-size: 22px;
         transition: 0.4s;
+    }
+
+    #adminButton,
+    #userButton:hover {
+        cursor: pointer;
+
     }
 
     #videoElement {
