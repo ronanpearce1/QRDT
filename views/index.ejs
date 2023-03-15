@@ -13,7 +13,7 @@
 
 
 <body>
-    <div class="container">
+    <div class="container" id="parent">
 
 
         <figure>
@@ -27,16 +27,12 @@
         <form id="mainForm">
             <input type="file" capture="camera" accept="image/*" class="capture" id="capture" name="cameraInput">
             <label for="capture" id="labelForCapture">Scan QR</label>
-
-            <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
-            <div id="qrcode"></div>
-
-
             <p class="error" , id="error">
                 <% if (messages.error) { %>
                     <%= messages.error %>
                         <% } %>
             </p>
+            <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
 
             <p style="text-align: center;">Or</p>
 
@@ -114,6 +110,8 @@
             text: file,
             width: 300,
             height: 300,
+            colorDark: "#3d3d3d",
+            colorLight: "#ffffff"
         });
     };
 
@@ -138,7 +136,13 @@
 
 
 
-    var qrcode = new QRCode("qr");
+    const qrcode = new QRCode('qr', {
+        text: 'qr',
+        width: 300,
+        height: 300,
+        colorDark: "#3d3d3d",
+        colorLight: "#FFFFFF"
+    });
 
     function makeCode() {
         var elText = document.getElementById("text");
@@ -148,6 +152,8 @@
             elText.focus();
             return;
         }
+
+        document.getElementById('qr').style.transition = "0.4s";
         document.getElementById('qr').style.display = "flex";
         qrcode.makeCode(elText.value);
     }

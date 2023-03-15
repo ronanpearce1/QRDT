@@ -29,7 +29,7 @@
                 <input type="email" class="entry" id="email" name="email" placeholder="Enter Email" required>
             </div>
             <div>
-                <div id="message" style="display: none; font-size: small; text-align: center;">
+                <div id="message" style="display: none; font-size: small; text-align: center; color: red;">
                     Password must be at least 8 characters with a capital letter and a number!</div>
                 <input type="password" class="entry" id="password" name="password"
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter Password" required>
@@ -54,10 +54,12 @@
 
     //Alert user to use certain password format
     password.onmouseover = function () {
+        timeout = setTimeout(callback, 1000);
         message.style.display = "block";
     }
     password.onmouseleave = function () {
         message.style.display = "none";
+
     }
 
     //Check if 2 password fields match
