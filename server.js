@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+
 //CONSTANTS TO REQUIRE SERVER DEPENDENCIES
 const express = require('express')
 const app = express()
@@ -15,7 +16,7 @@ const host = '0.0.0.0';
 
 //DATABASE CONNECTION
 //const mongoose = require('mongoose')
-//mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true})
+//mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 //const db = mongoose.connection
 //db.on('error', error => console.error(error))
 //db.once('open', () => console.log('Connected to Mongoose'))
@@ -28,14 +29,16 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 
+//TEST USER
 const users = [{
   id: '1668519999893',
   name: 'Ronan',
   email: 'ronanp34@gmail.com',
-  password: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
+  password: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO',
+  adminPassword: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
 }]
 
-
+//VIEW ENGINE
 app.use(express.static("public"));
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -50,7 +53,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('admin.ejs', { name: req.user.name })
+  res.render('index.ejs', { name: req.user.name })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -98,6 +101,10 @@ app.delete('/logout', (req, res, next) => {
   });
 });
 
+
+
+
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
@@ -112,6 +119,46 @@ function checkNotAuthenticated(req, res, next) {
   }
   next()
 }
+
+
+
+const { BlobServiceClient } = require('@azure/storage-blob');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage: storage })
+
+const connectionString = 'DefaultEndpointsProtocol=https;AccountName=qrdtstorage;AccountKey=w7gs2mj5oFd2h2ERb0ScXl/FhdLUx0gNlr4wfpCqJ2yAEQAdvW8scp3vcmcEHV5TvldcWFtUfOzN+AStXQUcLQ==;EndpointSuffix=core.windows.net';
+const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+
+
+app.post('/upload', upload.single('file'), async (req, res, done) => {
+  const containerName = 'qrdtcontainer';
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+
+  await containerClient.createIfNotExists();
+
+  const blobName = req.file.originalname;
+  console.log(blobName);
+  const blobClient = containerClient.getBlockBlobClient(blobName);
+  const filePath = req.file.path;
+  console.log(filePath);
+
+  await blobClient.uploadFile(filePath);
+
+  fs.unlinkSync(filePath);
+  console.log('File uploaded successfully.');
+});
 
 app.listen(port, host);
 

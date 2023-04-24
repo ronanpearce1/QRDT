@@ -1,0 +1,41 @@
+Date : 2023-03-28 22:42:11
+Directory : c:\Users\ronan\Desktop\Project Source Files\qrdt
+Total : 11 files,  6455 codes, 8 comments, 213 blanks, all 6676 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      5,606 |          0 |          2 |      5,608 |
+| HTML       |          6 |        732 |          0 |        183 |        915 |
+| JavaScript |          2 |        116 |          8 |         27 |        151 |
+| Markdown   |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         11 |      6,455 |          8 |        213 |      6,676 |
+| . (Files)                                                           |          5 |      5,723 |          8 |         30 |      5,761 |
+| css                                                                 |          1 |        233 |          0 |         51 |        284 |
+| views                                                               |          5 |        499 |          0 |        132 |        631 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                            | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\README.md          | Markdown   |          1 |          0 |          1 |          2 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\css\style.ejs      | HTML       |        233 |          0 |         51 |        284 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\package-lock.json  | JSON       |      5,577 |          0 |          1 |      5,578 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\package.json       | JSON       |         29 |          0 |          1 |         30 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\passport-config.js | JavaScript |         26 |          0 |          7 |         33 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\server.js          | JavaScript |         90 |          8 |         20 |        118 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\admin.ejs    | HTML       |        176 |          0 |         50 |        226 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\index.ejs    | HTML       |        122 |          0 |         45 |        167 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\info.ejs     | HTML       |         45 |          0 |          6 |         51 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\login.ejs    | HTML       |         89 |          0 |         22 |        111 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\register.ejs | HTML       |         67 |          0 |          9 |         76 |
+| Total                                                               |            |      6,455 |          8 |        213 |      6,676 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+

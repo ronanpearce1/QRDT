@@ -1,3 +1,5 @@
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Comptible" content="IE=Edge">
@@ -24,29 +26,30 @@
         <h2 class="formTitle">Welcome <%= name %>
         </h2>
 
-        <form id="mainForm">
-            <input type="file" capture="camera" accept="image/*" class="capture" id="capture" name="cameraInput">
-            <label for="capture" id="labelForCapture">Scan QR</label>
-            <p class="error" , id="error">
-                <% if (messages.error) { %>
-                    <%= messages.error %>
-                        <% } %>
-            </p>
-            <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
+        <input type="file" capture="camera" accept="image/*" class="capture" id="capture" name="cameraInput">
 
-            <p style="text-align: center;">Or</p>
+        <label for="capture" id="labelForCapture">Scan QR</label>
 
-            <input type="file" class="select" id="select" placeholder=""
-                value="https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4">
-            <label for="select" id="labelForSelect">Select a file</label><br />
+        <p class="error" , id="error">
+            <% if (messages.error) { %>
+                <%= messages.error %>
+                    <% } %>
+        </p>
 
-            <div id="qrcode"></div>
+        <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
 
-            <button type="submit" class="generate" id="generate">Generate QR Code For Your File</button>
+        <p style="text-align: center;">Or</p>
 
+        <form id="mainForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="select" class="select">
+            <label for="select" id="labelForSelect">Select File</label>
+            <br>
             <div id="qr"></div>
-
+            <br>
+            <button type="submit" id="generate" class="generate">Upload</button>
         </form>
+
+
 
         <form id="resetQR">
             <button class="resetQRBtn" id="resetQRBtn">Clear</button>
@@ -61,21 +64,16 @@
 
 
 
+
     </div>
 </body>
 
 <script>
+
     const form = document.getElementById('mainForm');
     const resetQRBtn = document.getElementById('resetQRBtn');
     const qr = document.getElementById('qr');
 
-
-    var videoLinks = ["https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Marvel%20Studios%E2%80%99%20Guardians%20of%20the%20Galaxy%20Volume%203%20_%20Official%20Trailer.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-JW4%20_%20Sneak%20Peek.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-The%20Last%20of%20Us%20_%20Official%20Trailer%20_%20HBO%20Max-(1080p).mp4", "", "", "", "",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Transformers_%20Rise%20of%20the%20Beasts%20_%20Official%20Teaser%20Trailer%20(2023%20Movie).mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-The%20Last%20of%20Us%20_%20Official%20Trailer%20_%20HBO%20Max-(1080p).mp4"];
 
     const onGenerateSubmit = (e) => {
         document.getElementById("text").value = "";
@@ -84,16 +82,9 @@
         const reader = new FileReader();
 
         var file = document.getElementById('select').value;
-        if (file.includes("avatarv")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4"
-        } else if (file.includes("avatari")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/avatari.jpg"
-        } else if (file.includes("jw4v")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-JW4%20_%20Sneak%20Peek.mp4"
-        } else if (file.includes("jw4i")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/jw4i.jpeg"
-        }
 
+        file = (file.split("\\").pop());
+        file = "https://qrdtstorage.blob.core.windows.net/qrdtcontainer/" + file;
 
 
         if (file === '') {
@@ -118,6 +109,7 @@
 
     form.addEventListener('change', checkForFile => {
         const file = document.getElementById('select').value;
+        console.log(file);
         if (file === '') {
 
         } else {
@@ -131,10 +123,7 @@
         document.getElementById('qr').innerHTML = "";
     });
 
-    form.addEventListener('submit', onGenerateSubmit);
-
-
-
+    form.addEventListener('change', onGenerateSubmit);
 
     const qrcode = new QRCode('qr', {
         text: 'qr',
@@ -165,3 +154,5 @@
 
     });
 </script>
+
+</html>

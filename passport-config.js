@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcrypt')
 
 function initialize(passport, getUserByEmail, getUserById) {
-  const authenticateUser = async (email, password, done) => {
+  const authenticateUser = async (email, password, done, adminPassword) => {
     const user = getUserByEmail(email)
     if (user == null) {
       return done(null, false, { message: 'This account does not exist!' })
@@ -17,6 +17,7 @@ function initialize(passport, getUserByEmail, getUserById) {
     } catch (e) {
       return done(e)
     }
+
   }
 
   passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
@@ -25,7 +26,7 @@ function initialize(passport, getUserByEmail, getUserById) {
     return done(null, getUserById(id))
     console.log(user)
   })
-  
+
 }
 
 module.exports = initialize

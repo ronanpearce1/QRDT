@@ -1,0 +1,13 @@
+"filename", "language", "HTML", "JavaScript", "Markdown", "JSON", "comment", "blank", "total"
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\README.md", "Markdown", 0, 0, 1, 0, 0, 1, 2
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\css\style.ejs", "HTML", 233, 0, 0, 0, 0, 51, 284
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\package-lock.json", "JSON", 0, 0, 0, 5577, 0, 1, 5578
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\package.json", "JSON", 0, 0, 0, 29, 0, 1, 30
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\passport-config.js", "JavaScript", 0, 26, 0, 0, 0, 7, 33
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\server.js", "JavaScript", 0, 90, 0, 0, 8, 20, 118
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\views\admin.ejs", "HTML", 176, 0, 0, 0, 0, 50, 226
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\views\index.ejs", "HTML", 122, 0, 0, 0, 0, 45, 167
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\views\info.ejs", "HTML", 45, 0, 0, 0, 0, 6, 51
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\views\login.ejs", "HTML", 89, 0, 0, 0, 0, 22, 111
+"c:\Users\ronan\Desktop\Project Source Files\qrdt\views\register.ejs", "HTML", 67, 0, 0, 0, 0, 9, 76
+"Total", "-", 732, 116, 1, 5606, 8, 213, 6676
