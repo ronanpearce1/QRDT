@@ -45,6 +45,7 @@
             <label for="select" id="labelForSelect">Select File</label>
             <br>
             <div id="qr"></div>
+            <div id="hide" class="hide">Click Upload to allow access to your QR</div>
             <br>
             <button type="submit" id="generate" class="generate">Upload</button>
         </form>
@@ -114,6 +115,7 @@
 
         } else {
             document.getElementById('generate').style.display = "block";
+            document.getElementById('hide').style.display = "block"
             document.getElementById('labelForSelect').innerHTML = "Change File";
         }
     });
