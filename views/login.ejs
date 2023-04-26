@@ -24,11 +24,11 @@
             </p>
             <div>
                 <input type="email" class="entry" id="email" name="email" autofocus placeholder="Enter email" required
-                    autocomplete="" value="ronanp34@gmail.com">
+                    autocomplete="">
             </div>
             <div>
-                <input type="password" class="entry" id="password" name="password" placeholder="Enter password" required
-                    value="password">
+                <input type="password" class="entry" id="password" name="password" placeholder="Enter password"
+                    required>
             </div>
 
             <div>
@@ -47,6 +47,45 @@
 </body>
 
 <script>
+
+    const adminPassword = document.getElementById("adminPassword");
+
+    const adminButton = document.getElementById("adminButton");
+    const userButton = document.getElementById("userButton");
+
+    const userTitle = document.getElementById("userTitle");
+    const adminTitle = document.getElementById("adminTitle");
+
+    adminPassword.style.display = "none";
+    userButton.style.display = "none";
+    adminTitle.style.display = "none";
+
+    if (adminPassword.style.display = "block") {
+        document.querySelector('#adminButton').addEventListener('click', function (e) {
+            adminPassword.style.display = "block";
+
+            adminButton.style.display = "none";
+            userButton.style.display = "block";
+
+            userTitle.style.display = "none";
+            adminTitle.style.display = "block";
+
+        })
+    }
+
+    if (adminPassword.style.display = "none") {
+        document.querySelector('#userButton').addEventListener('click', function (e) {
+            adminPassword.style.display = "none";
+
+            userButton.style.display = "none";
+            adminButton.style.display = "block";
+
+            adminTitle.style.display = "none";
+            userTitle.style.display = "block";
+        })
+    }
+
+
     const email = document.getElementById("email");
     const password = document.getElementById("password");
     const submit = document.getElementById("loginbutton");
@@ -67,42 +106,7 @@
     });
 
 
-    const adminPassword = document.getElementById("adminPassword");
 
-    const adminButton = document.getElementById("adminButton");
-    const userButton = document.getElementById("userButton");
-
-    const userTitle = document.getElementById("userTitle");
-    const amdinTitle = document.getElementById("adminTitle");
-
-    adminPassword.style.display = "none";
-    adminButton.style.display = "none";
-    userTitle.style.display = "none";
-
-    if (adminPassword.style.display = "none") {
-        document.querySelector('#adminButton').addEventListener('click', function (e) {
-            adminPassword.style.display = "block";
-
-            adminButton.style.display = "none";
-            userButton.style.display = "block";
-
-            userTitle.style.display = "none";
-            adminTitle.style.display = "block";
-
-        })
-    }
-
-    if (adminPassword.style.display = "block") {
-        document.querySelector('#userButton').addEventListener('click', function (e) {
-            adminPassword.style.display = "none";
-
-            userButton.style.display = "none";
-            adminButton.style.display = "block";
-
-            adminTitle.style.display = "none";
-            userTitle.style.display = "block";
-        })
-    }
 
 
 

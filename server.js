@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-
 //CONSTANTS TO REQUIRE SERVER DEPENDENCIES
 const express = require('express')
 const app = express()
@@ -103,8 +102,6 @@ app.delete('/logout', (req, res, next) => {
 
 
 
-
-
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
@@ -138,7 +135,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-const connectionString = 'DefaultEndpointsProtocol=https;AccountName=qrdtstorage;AccountKey=w7gs2mj5oFd2h2ERb0ScXl/FhdLUx0gNlr4wfpCqJ2yAEQAdvW8scp3vcmcEHV5TvldcWFtUfOzN+AStXQUcLQ==;EndpointSuffix=core.windows.net';
+const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
 
