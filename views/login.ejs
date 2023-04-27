@@ -16,7 +16,6 @@
         </figure>
         <form class="form" id="login" action="/login" method="POST">
             <h1 class="formTitle" id="userTitle">Login</h1>
-            <h1 class="formTitle" id="adminTitle">Admin Login</h1>
             <p class=" error">
                 <% if (messages.error) { %>
                     <%= messages.error %>
@@ -31,12 +30,33 @@
                     required>
             </div>
 
-            <div>
-                <input type="password" class="entry" id="adminPassword" name="adminPassword"
-                    placeholder="Enter admin password">
-            </div>
             <button type="submit" class="button" id="loginbutton" style="display: none;">Login</button>
         </form>
+
+        <form class="form" id="adminLogin" action="/admin" method="POST" style="display: none;">
+            <h1 class="formTitle" id="adminTitle">Admin Login</h1>
+            <p class=" error">
+                <% if (messages.error) { %>
+                    <%= messages.error %>
+                        <% } %>
+            </p>
+            <div>
+                <input type="email" class="entry" id="aEmail" name="email" autofocus placeholder="Enter email" required
+                    autocomplete="" value="ronanp34@gmail.com">
+            </div>
+            <div>
+                <input type="password" class="entry" id="aPassword" name="password" placeholder="Enter password"
+                    required value="password">
+            </div>
+
+            <div>
+                <input type="password" class="entry" id="adminPassword" name="adminPassword"
+                    placeholder="Enter admin password" value="password">
+            </div>
+            <button type="submit" class="button" id="adminLoginbutton" style="display: none;">Login as
+                Admin</button>
+        </form>
+
         <a id="adminButton" class="changeForm" style="text-align: right; font-size: 15px;">Admin Login</a>
         <a id="userButton" class="changeForm" style="text-align: right; font-size: 15px;">User Login</a>
         <br>
@@ -53,47 +73,52 @@
     const adminButton = document.getElementById("adminButton");
     const userButton = document.getElementById("userButton");
 
-    const userTitle = document.getElementById("userTitle");
-    const adminTitle = document.getElementById("adminTitle");
-
-    adminPassword.style.display = "none";
-    userButton.style.display = "none";
-    adminTitle.style.display = "none";
-
-    if (adminPassword.style.display = "block") {
-        document.querySelector('#adminButton').addEventListener('click', function (e) {
-            adminPassword.style.display = "block";
-
-            adminButton.style.display = "none";
-            userButton.style.display = "block";
-
-            userTitle.style.display = "none";
-            adminTitle.style.display = "block";
-
-        })
-    }
-
-    if (adminPassword.style.display = "none") {
-        document.querySelector('#userButton').addEventListener('click', function (e) {
-            adminPassword.style.display = "none";
-
-            userButton.style.display = "none";
-            adminButton.style.display = "block";
-
-            adminTitle.style.display = "none";
-            userTitle.style.display = "block";
-        })
-    }
-
+    const loginForm = document.getElementById("login");
+    const adminLoginForm = document.getElementById("adminLogin");
 
     const email = document.getElementById("email");
     const password = document.getElementById("password");
+
+    const aEmail = document.getElementById("aEmail");
+    const aPassword = document.getElementById("aPassword");
+
     const submit = document.getElementById("loginbutton");
+    const adminSubmit = document.getElementById("adminLoginbutton");
+
+    userButton.style.display = "none";
+
+    if (userButton.style.display = "block") {
+        document.querySelector('#adminButton').addEventListener('click', function (e) {
+            loginForm.style.display = "none";
+            adminLoginForm.style.display = "block";
+            adminButton.style.display = "none";
+            userButton.style.display = "block";
+        })
+    }
+
+    if (userButton.style.display = "none") {
+        document.querySelector('#userButton').addEventListener('click', function (e) {
+            adminLoginForm.style.display = "none";
+            loginForm.style.display = "block";
+            userButton.style.display = "none";
+            adminButton.style.display = "block";
+        })
+    }
+
 
     function validateLogin() {
         submit.style.display = "none";
         if (email.value && password.value) {
             submit.style.display = "block";
+        } else {
+        }
+    }
+
+    function validateAdminLogin() {
+        adminSubmit.style.display = "none";
+        if (aEmail.value && aPassword.value && adminPassword.value == aPassword.value) {
+            adminSubmit.style.display = "block";
+            submit.style.display = "none";
         } else {
         }
     }
@@ -104,12 +129,8 @@
     document.querySelector('#password').addEventListener('keyup', function (e) {
         validateLogin();
     });
-
-
-
-
-
-
-
+    document.querySelector('#adminPassword').addEventListener('keyup', function (e) {
+        validateAdminLogin();
+    });
 
 </script>

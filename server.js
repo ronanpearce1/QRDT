@@ -55,6 +55,10 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', { name: req.user.name })
 })
 
+app.get('/admin', checkAuthenticated, (req, res) => {
+  res.render('admin.ejs', { name: req.user.name })
+})
+
 app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login.ejs')
 })
@@ -64,6 +68,14 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true
 }))
+
+app.post('/admin', checkNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/admin',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
+
+
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs')
