@@ -51,6 +51,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+
+//APP LOGIN ROUTES
 app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', { name: req.user.name })
 })
@@ -74,7 +76,6 @@ app.post('/admin', checkNotAuthenticated, passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true
 }))
-
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs')
@@ -101,7 +102,6 @@ app.get('/info', (req, res) => {
   res.render('info.ejs')
 })
 
-
 app.delete('/logout', (req, res, next) => {
   req.logOut((err) => {
     if (err) {
@@ -112,8 +112,7 @@ app.delete('/logout', (req, res, next) => {
 });
 
 
-
-
+//AUTHENTICATION OF LOGIN
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
@@ -130,7 +129,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-
+//STORAGE OF FILES
 const { BlobServiceClient } = require('@azure/storage-blob');
 const multer = require('multer');
 const path = require('path');
@@ -146,10 +145,8 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-
 const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-
 const containerName = 'qrdtcontainer';
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
@@ -160,10 +157,8 @@ app.post('/upload', upload.single('file'), async (req, res, done) => {
   await containerClient.createIfNotExists();
 
   const blobName = req.file.originalname;
-  console.log(blobName);
   const blobClient = containerClient.getBlockBlobClient(blobName);
   const filePath = req.file.path;
-  console.log(filePath);
 
   await blobClient.uploadFile(filePath);
 

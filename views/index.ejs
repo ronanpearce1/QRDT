@@ -30,12 +30,6 @@
 
         <label for="capture" id="labelForCapture">Scan QR</label>
 
-        <p class="error" , id="error">
-            <% if (messages.error) { %>
-                <%= messages.error %>
-                    <% } %>
-        </p>
-
         <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
 
         <p style="text-align: center;">Or</p>
@@ -47,6 +41,11 @@
             <div id="qr"></div>
             <div id="hide" class="hide">Click Upload to allow access to your QR</div>
             <br>
+            <p class="error" , id="error">
+                <% if (messages.error) { %>
+                    <%= messages.error %>
+                        <% } %>
+            </p>
             <button type="submit" id="generate" class="generate">Upload</button>
         </form>
 
