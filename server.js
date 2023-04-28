@@ -76,7 +76,6 @@ app.post('/admin', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 
-
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs')
 })
@@ -111,6 +110,7 @@ app.delete('/logout', (req, res, next) => {
     res.redirect('/login');
   });
 });
+
 
 
 
@@ -150,6 +150,8 @@ const upload = multer({ storage: storage })
 const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
+const containerName = 'qrdtcontainer';
+const containerClient = blobServiceClient.getContainerClient(containerName);
 
 app.post('/upload', upload.single('file'), async (req, res, done) => {
   const containerName = 'qrdtcontainer';
@@ -169,5 +171,17 @@ app.post('/upload', upload.single('file'), async (req, res, done) => {
   console.log('File uploaded successfully.');
 });
 
-app.listen(port, host);
+async function listBlobs() {
+  const blobs = [];
+  for await (const blob of containerClient.listBlobsFlat()) {
+    blobs.push(blob.name);
+  }
+  return blobs;
+}
 
+app.get('/blobs', async (req, res) => {
+  const blobs = await listBlobs();
+  res.append('blobs.ejs', { blobs });
+});
+
+app.listen(port, host);
