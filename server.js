@@ -125,6 +125,7 @@ app.delete('/logout', (req, res, next) => {
 
 
 //AUTHENTICATION OF LOGIN
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
@@ -142,6 +143,7 @@ function checkNotAuthenticated(req, res, next) {
 
 
 //STORAGE OF FILES
+
 const { BlobServiceClient } = require('@azure/storage-blob');
 const multer = require('multer');
 const path = require('path');
