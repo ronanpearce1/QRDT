@@ -2,7 +2,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+
 //CONSTANTS TO REQUIRE SERVER DEPENDENCIES
+
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
@@ -13,14 +15,18 @@ const methodOverride = require('method-override')
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
 
+
 //DATABASE CONNECTION
+
 //const mongoose = require('mongoose')
 //mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 //const db = mongoose.connection
 //db.on('error', error => console.error(error))
 //db.once('open', () => console.log('Connected to Mongoose'))
 
+
 //PASSPORT
+
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -28,7 +34,9 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 
+
 //TEST USER
+
 const users = [{
   id: '1668519999893',
   name: 'Ronan',
@@ -37,7 +45,9 @@ const users = [{
   adminPassword: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
 }]
 
+
 //VIEW ENGINE
+
 app.use(express.static("public"));
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -51,12 +61,19 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+
+
+//ROUTES
+
 app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', { name: req.user.name })
 })
 
-app.get('/admin', checkAuthenticated, (req, res) => {
-  res.render('admin.ejs', { name: req.user.name })
+app.get('/admin', checkAuthenticated, async (req, res) => {
+  const blobName = await listBlobsName();
+  const blobURL = await listBlobsURL();
+  const blobTime = await listBlobsCreationTime();
+  res.render('admin.ejs', { name: req.user.name, blobName, blobURL, blobTime })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -112,8 +129,7 @@ app.delete('/logout', (req, res, next) => {
 });
 
 
-
-
+//AUTHENTICATION
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
@@ -130,7 +146,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-
+//FILE STORAGE
 const { BlobServiceClient } = require('@azure/storage-blob');
 const multer = require('multer');
 const path = require('path');
@@ -146,10 +162,8 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
-
 const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-
 const containerName = 'qrdtcontainer';
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
@@ -171,17 +185,55 @@ app.post('/upload', upload.single('file'), async (req, res, done) => {
   console.log('File uploaded successfully.');
 });
 
-async function listBlobs() {
+app.post('/deleteBlob', async (req, res) => {
+  const blobName = req.body.blobName;
+  await deleteBlob(blobName);
+  console.log(blobName, "Successfuly Deleted")
+  res.redirect('/admin');
+});
+
+async function listBlobsName() {
   const blobs = [];
   for await (const blob of containerClient.listBlobsFlat()) {
-    blobs.push(blob.name);
+    blobs.push(blob);
+  }
+  blobs.sort((a, b) => {
+    return b.properties.lastModified.valueOf() - a.properties.lastModified.valueOf();
+  });
+  const blobNames = blobs.map(blob => blob.name);
+  return blobNames;
+}
+
+async function listBlobsURL() {
+  const blobs = [];
+  for await (const blob of containerClient.listBlobsFlat()) {
+    const blobClient = containerClient.getBlobClient(blob.name);
+    const blobProperties = await blobClient.getProperties();
+    const blobURL = blobClient.url;
+    blobs.push({
+      url: blobURL,
+      creationTime: blobProperties.createdOn.valueOf()
+    });
+  }
+  blobs.sort((a, b) => b.creationTime - a.creationTime);
+  const blobURLs = blobs.map(blob => blob.url);
+  return blobURLs;
+}
+
+async function listBlobsCreationTime() {
+  const blobs = [];
+  for await (const blob of containerClient.listBlobsFlat()) {
+    const properties = await containerClient.getBlobClient(blob.name).getProperties();
+    const createdOn = properties.createdOn;
+    const nameWithTime = `Uploaded on ${createdOn.toLocaleString()}`;
+    blobs.push(nameWithTime);
   }
   return blobs;
 }
 
-app.get('/blobs', async (req, res) => {
-  const blobs = await listBlobs();
-  res.append('blobs.ejs', { blobs });
-});
+async function deleteBlob(blobName) {
+  const blobClient = containerClient.getBlobClient(blobName);
+  await blobClient.delete();
+}
 
 app.listen(port, host);

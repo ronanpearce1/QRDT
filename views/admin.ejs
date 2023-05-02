@@ -24,53 +24,29 @@
         <h2 class="formTitle">Welcome Admin <%= name %>
         </h2>
         <h3 class="sectionTitle">All Files:</h3>
-        <form action="/blobs">
-            <ul>
-                <% for (let i=0; i < blobs.length; i++) { %>
-                    <li>
-                        <%= blobs[i] %>
-                    </li>
-                    <% } %>
-            </ul>
-        </form>
+
+        <h5 class="allFiles">
+            <% for (let i=0; i < blobName.length; i++) { %>
+                <h6>
+                    <a class="adminLabel" value="<%= blobName[i] %>">
+                        <%= blobName[i] %>
+                            <br>
+                            <%= blobTime[i] %>
+                    </a>
+                    <div id="<%= i %>" class="adminQR" width="100" height="100"></div>
+                    <form method="POST" action="/deleteBlob">
+                        <input type="hidden" name="blobName" value="<%= blobName[i] %>">
+                        <button class="deleteBlob" type="submit">Delete</button>
+                    </form>
+                </h6>
+                <script>
+                    new QRCode(document.getElementById("<%= i %>"), "<%= blobURL[i] %>");
+                </script>
+                <% } %>
+        </h5>
 
         <h3 class="sectionTitle">User Comments:</h3>
         <textarea name="users" rows="20" id="users"></textarea>
-
-        <h3 class="sectionTitle">QR Generator:</h3>
-        <form id="mainForm">
-            <input type="file" capture="camera" accept="image/*" class="capture" id="capture" name="cameraInput">
-            <label for="capture" id="labelForCapture">Scan QR</label>
-
-            <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
-            <div id="qrcode"></div>
-
-
-            <p class="error" , id="error">
-                <% if (messages.error) { %>
-                    <%= messages.error %>
-                        <% } %>
-            </p>
-
-            <p style="text-align: center;">Or</p>
-
-            <input type="file" class="select" id="select" placeholder=""
-                value="https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4">
-            <label for="select" id="labelForSelect">Select a file</label><br />
-
-            <div id="qrcode"></div>
-
-            <button type="submit" class="generate" id="generate">Generate QR Code For Your File</button>
-
-            <div id="qr"></div>
-
-        </form>
-
-        <form id="resetQR">
-            <button class="resetQRBtn" id="resetQRBtn">Clear</button>
-        </form>
-
-
 
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit" class="logoutBtn">Log Out</button>
@@ -82,95 +58,3 @@
 
     </div>
 </body>
-
-<script>
-    const form = document.getElementById('mainForm');
-    const resetQRBtn = document.getElementById('resetQRBtn');
-    const qr = document.getElementById('qr');
-
-
-    var videoLinks = ["https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Marvel%20Studios%E2%80%99%20Guardians%20of%20the%20Galaxy%20Volume%203%20_%20Official%20Trailer.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-JW4%20_%20Sneak%20Peek.mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-The%20Last%20of%20Us%20_%20Official%20Trailer%20_%20HBO%20Max-(1080p).mp4", "", "", "", "",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Transformers_%20Rise%20of%20the%20Beasts%20_%20Official%20Teaser%20Trailer%20(2023%20Movie).mp4",
-        "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-The%20Last%20of%20Us%20_%20Official%20Trailer%20_%20HBO%20Max-(1080p).mp4"];
-
-    const onGenerateSubmit = (e) => {
-        document.getElementById("text").value = "";
-        e.preventDefault();
-
-        const reader = new FileReader();
-
-        var file = document.getElementById('select').value;
-        if (file.includes("avatarv")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-Avatar_%20The%20Way%20of%20Water%20_%20Official%20Trailer.mp4"
-        } else if (file.includes("avatari")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/avatari.jpg"
-        } else if (file.includes("jw4v")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/yt5s.io-JW4%20_%20Sneak%20Peek.mp4"
-        } else if (file.includes("jw4i")) {
-            file = "https://com682b00796690.blob.core.windows.net/videostoreb00796690/jw4i.jpeg"
-        }
-
-
-
-        if (file === '') {
-        } else {
-            document.getElementById('qr').innerHTML = "";
-            generateQRCode(file);
-            document.getElementById('qr').style.display = "flex";
-            document.getElementById('resetQRBtn').style.display = "block";
-        }
-    };
-
-    const generateQRCode = (file) => {
-        const qrcode = new QRCode('qr', {
-            text: file,
-            width: 300,
-            height: 300,
-        });
-    };
-
-
-    form.addEventListener('change', checkForFile => {
-        const file = document.getElementById('select').value;
-        if (file === '') {
-
-        } else {
-            document.getElementById('generate').style.display = "block";
-            document.getElementById('labelForSelect').innerHTML = "Change File";
-        }
-    });
-
-    resetQRBtn.addEventListener('click', clearQR => {
-        document.getElementById('resetQRBtn').style.display = "none";
-        document.getElementById('qr').innerHTML = "";
-    });
-
-    form.addEventListener('submit', onGenerateSubmit);
-
-
-
-
-    var qrcode = new QRCode("qr");
-
-    function makeCode() {
-        var elText = document.getElementById("text");
-
-        if (!elText.value) {
-            document.getElementById('qr').style.display = "none";
-            elText.focus();
-            return;
-        }
-        document.getElementById('qr').style.display = "flex";
-        qrcode.makeCode(elText.value);
-    }
-
-    makeCode();
-
-    document.querySelector('#text').addEventListener('keyup', function (e) {
-        makeCode();
-
-    });
-</script>

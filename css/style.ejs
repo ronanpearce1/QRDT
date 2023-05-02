@@ -46,6 +46,7 @@
     p {
         text-align: justify;
         font-size: smaller;
+        list-style: none;
     }
 
     .container,
@@ -126,7 +127,8 @@
 
     button,
     .button,
-    label {
+    label,
+    .adminLabel {
         margin-bottom: 1rem;
         display: block;
         width: 100%;
@@ -190,7 +192,8 @@
         height: 0px;
     }
 
-    #qr {
+    #qr,
+    .adminQR {
         margin: auto;
         display: flex;
         align-items: center;
@@ -278,5 +281,53 @@
         text-align: center;
         display: none;
         color: rgb(193, 10, 248);
+    }
+
+
+    .adminQR,
+    .deleteBlob {
+        height: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, height 0.4s ease-in-out;
+    }
+
+    h6:hover .adminLabel {
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    h6:hover .adminQR {
+        height: 250px;
+        opacity: 1;
+    }
+
+    h6:hover .deleteBlob {
+        height: 50px;
+        opacity: 1;
+    }
+
+    .adminLabel {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        cursor: pointer;
+        padding: 5px;
+        border-style: solid;
+        font-weight: normal;
+    }
+
+    .deleteBlob {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        font-weight: bold;
+    }
+
+    .deleteBlob:hover {
+        background: rgb(193, 10, 248);
     }
 </style>
