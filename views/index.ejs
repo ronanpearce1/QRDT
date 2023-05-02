@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Comptible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=500, initial-scale=1.0">
     <%- include('../css/style.ejs'); %>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +30,8 @@
 
         <label for="capture" id="labelForCapture">Scan QR</label>
 
+        <p style="text-align: center;" id="orScanQR">Or</p>
+
         <input id="text" class="entry" type="text" value="" placeholder="Enter URL">
 
         <p style="text-align: center;">Or</p>
@@ -41,11 +43,6 @@
             <div id="qr"></div>
             <div id="hide" class="hide">Click Upload to allow access to your QR</div>
             <br>
-            <p class="error" , id="error">
-                <% if (messages.error) { %>
-                    <%= messages.error %>
-                        <% } %>
-            </p>
             <button type="submit" id="generate" class="generate">Upload</button>
         </form>
 
@@ -69,6 +66,15 @@
 </body>
 
 <script>
+
+    const uploadBtn = document.getElementById("generate");
+
+    uploadBtn.addEventListener("click", clickUpload);
+
+    function clickUpload() {
+        document.getElementById("hide").innerHTML = "File Uploaded!";
+        uploadBtn.style.display = "none";
+    }
 
     const form = document.getElementById('mainForm');
     const resetQRBtn = document.getElementById('resetQRBtn');
