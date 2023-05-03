@@ -26,6 +26,7 @@
         <h2 class="formTitle">Welcome <%= name %>
         </h2>
 
+
         <input type="file" capture="camera" accept="image/*" class="capture" id="capture" name="cameraInput">
 
         <label for="capture" id="labelForCapture">Scan QR</label>
@@ -38,7 +39,9 @@
 
         <form id="mainForm" action="/upload" method="POST" enctype="multipart/form-data">
             <input type="file" name="file" id="select" class="select">
+
             <label for="select" id="labelForSelect">Select File</label>
+            <input type="text" class="hideName" name="name" value="<%= name %>">
             <br>
             <div id="qr"></div>
             <div id="hide" class="hide">Click Upload to allow access to your QR</div>
@@ -46,13 +49,12 @@
             <button type="submit" id="generate" class="generate">Upload</button>
         </form>
 
-
-
         <form id="resetQR">
             <button class="resetQRBtn" id="resetQRBtn">Clear</button>
         </form>
 
-
+        <a href="/account" class="changeForm">See Your Files</a>
+        <br>
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit" class="logoutBtn">Log Out</button>
         </form>

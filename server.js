@@ -67,9 +67,9 @@ app.get('/', checkAuthenticated, (req, res) => {
 })
 
 app.get('/admin', checkAuthenticated, async (req, res) => {
-  const blobName = await listBlobsName();
-  const blobURL = await listBlobsURL();
-  const blobTime = await listBlobsCreationTime();
+  const blobName = await listAdminBlobsName();
+  const blobURL = await listAdminBlobsURL();
+  const blobTime = await listAdminBlobsCreationTime();
   res.render('admin.ejs', { name: req.user.name, blobName, blobURL, blobTime })
 })
 
@@ -108,6 +108,13 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     res.redirect('/register')
   }
   console.log(users)
+})
+
+app.get('/account', checkAuthenticated, async (req, res) => {
+  const blobName = await listBlobsName();
+  const blobURL = await listBlobsURL();
+  const blobTime = await listBlobsCreationTime();
+  res.render('account.ejs', { name: req.user.name, user: req.body.name, blobName, blobURL, blobTime })
 })
 
 app.get('/info', (req, res) => {
@@ -161,11 +168,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 const connectionString = process.env.AZURE_CONNECTION_STRING;
 const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-const containerName = 'qrdtcontainer';
-const containerClient = blobServiceClient.getContainerClient(containerName);
+
 
 app.post('/upload', upload.single('file'), async (req, res, done) => {
-  const containerName = 'qrdtcontainer';
+  const containerName = (JSON.stringify(req.body.name)).toLowerCase().replace(/"/g, '');
+  console.log(containerName);
+
   const containerClient = blobServiceClient.getContainerClient(containerName);
 
   await containerClient.createIfNotExists();
@@ -187,7 +195,12 @@ app.post('/deleteBlob', async (req, res) => {
   res.redirect('/admin');
 });
 
+const containerName = ("ronan");
+const containerClient = blobServiceClient.getContainerClient(containerName);
+
+
 async function listBlobsName() {
+  await containerClient.createIfNotExists();
   const blobs = [];
   for await (const blob of containerClient.listBlobsFlat()) {
     blobs.push(blob);
@@ -199,7 +212,9 @@ async function listBlobsName() {
   return blobNames;
 }
 
+
 async function listBlobsURL() {
+  await containerClient.createIfNotExists();
   const blobs = [];
   for await (const blob of containerClient.listBlobsFlat()) {
     const blobClient = containerClient.getBlobClient(blob.name);
@@ -216,6 +231,7 @@ async function listBlobsURL() {
 }
 
 async function listBlobsCreationTime() {
+  await containerClient.createIfNotExists();
   const blobs = [];
   for await (const blob of containerClient.listBlobsFlat()) {
     const properties = await containerClient.getBlobClient(blob.name).getProperties();
@@ -226,6 +242,68 @@ async function listBlobsCreationTime() {
   return blobs;
 }
 
+
+
+async function listAdminBlobsName() {
+  const blobs = [];
+  for await (const container of blobServiceClient.listContainers()) {
+    const containerName = (container.name);
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    await containerClient.createIfNotExists();
+
+    for await (const blob of containerClient.listBlobsFlat()) {
+      blobs.push(blob);
+    }
+    blobs.sort((a, b) => {
+      return b.properties.lastModified.valueOf() - a.properties.lastModified.valueOf();
+    });
+
+  }
+  const blobNames = blobs.map(blob => blob.name);
+  return blobNames;
+}
+
+
+async function listAdminBlobsURL() {
+  const blobs = [];
+  for await (const container of blobServiceClient.listContainers()) {
+    const containerName = (container.name);
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    await containerClient.createIfNotExists();
+
+    for await (const blob of containerClient.listBlobsFlat()) {
+      const blobClient = containerClient.getBlobClient(blob.name);
+      const blobProperties = await blobClient.getProperties();
+      const blobURL = blobClient.url;
+      blobs.push({
+        url: blobURL,
+        creationTime: blobProperties.createdOn.valueOf()
+      });
+    }
+
+  }
+  blobs.sort((a, b) => b.creationTime - a.creationTime);
+  const blobURLs = blobs.map(blob => blob.url);
+  return blobURLs;
+}
+
+async function listAdminBlobsCreationTime() {
+  const blobs = [];
+  for await (const container of blobServiceClient.listContainers()) {
+    const containerName = (container.name);
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    await containerClient.createIfNotExists();
+
+    for await (const blob of containerClient.listBlobsFlat()) {
+      const properties = await containerClient.getBlobClient(blob.name).getProperties();
+      const createdOn = properties.createdOn;
+      const nameWithTime = `Uploaded on ${createdOn.toLocaleString()}`;
+      blobs.push(nameWithTime);
+    }
+
+  }
+  return blobs;
+}
 async function deleteBlob(blobName) {
   const blobClient = containerClient.getBlobClient(blobName);
   await blobClient.delete();
