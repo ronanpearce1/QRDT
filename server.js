@@ -43,6 +43,12 @@ const users = [{
   email: 'ronanp34@gmail.com',
   password: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO',
   adminPassword: '$2b$10$eUNYcFy1UpeRrDWRXMz9Ze82c1fRi2j5VPFZDRWjnEWsdKXHeGcmO'
+},
+{
+  id: '1683589061019',
+  name: 'Tester',
+  email: 'testemail@test.com',
+  password: '$2b$10$r8L8AKVmgrKUkCFXa3MV6eed1BUhI/lNMMMd6ozY9LGcM0NBmUt6q'
 }]
 
 
@@ -104,7 +110,6 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     })
     res.redirect('/login')
   } catch {
-    console.log("not working")
     res.redirect('/register')
   }
   console.log(users)
@@ -114,7 +119,7 @@ app.get('/account', checkAuthenticated, async (req, res) => {
   const blobName = await listBlobsName();
   const blobURL = await listBlobsURL();
   const blobTime = await listBlobsCreationTime();
-  res.render('account.ejs', { name: req.user.name, user: req.body.name, blobName, blobURL, blobTime })
+  res.render('account.ejs', { name: req.user.name, id: req.user.id, user: req.body.name, blobName, blobURL, blobTime })
 })
 
 app.get('/info', (req, res) => {
@@ -128,6 +133,15 @@ app.delete('/logout', (req, res, next) => {
     }
     res.redirect('/login');
   });
+});
+
+app.post('/delete-user', (req, res) => {
+  const userEmail = req.body.userEmail;
+  const index = users.findIndex(user => user.email === userEmail);
+  if (index !== -1) {
+    users.splice(index, 1);
+  } else {
+  }
 });
 
 
@@ -149,7 +163,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-//STORAGE OF FILES
+//USER STORAGE AND UPLOAD OF FILES
 
 const { BlobServiceClient } = require('@azure/storage-blob');
 const multer = require('multer');
@@ -243,7 +257,7 @@ async function listBlobsCreationTime() {
 }
 
 
-
+//ADMIN STORAGE ACCESS
 async function listAdminBlobsName() {
   const blobs = [];
   for await (const container of blobServiceClient.listContainers()) {

@@ -45,8 +45,12 @@
                 <% } %>
         </h5>
 
-        <h3 class="sectionTitle">User Comments:</h3>
-        <textarea name="users" rows="20" id="users"></textarea>
+        <h5>Delete User:</h5>
+        <form method="POST" action="/delete-user">
+            <input class="entry" type="text" name="userEmail" id="userEmail" required
+                placeholder="Enter User's email to confirm">
+            <button type="submit">Delete User</button>
+        </form>
 
         <form action="/logout?_method=DELETE" method="POST">
             <button type="submit" class="logoutBtn">Log Out</button>

@@ -1,0 +1,60 @@
+Date : 2023-05-09 00:10:11
+Directory : c:\Users\ronan\Desktop\qrdt\qrdt
+Total : 23 files,  1506 codes, 5 comments, 28 blanks, all 1539 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          4 |      1,354 |          0 |         -1 |      1,353 |
+| JavaScript |          4 |        147 |          5 |         43 |        195 |
+| Markdown   |          2 |          4 |          0 |          1 |          5 |
+| HTML       |         13 |          1 |          0 |        -15 |        -14 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                   |         23 |      1,506 |          5 |         28 |      1,539 |
+| . (Files)                                                           |          5 |      7,228 |         13 |         73 |      7,314 |
+| ..                                                                  |         11 |     -6,455 |         -8 |       -213 |     -6,676 |
+| ..\..                                                               |         11 |     -6,455 |         -8 |       -213 |     -6,676 |
+| ..\..\Project Source Files                                          |         11 |     -6,455 |         -8 |       -213 |     -6,676 |
+| ..\..\Project Source Files\qrdt                                     |         11 |     -6,455 |         -8 |       -213 |     -6,676 |
+| ..\..\Project Source Files\qrdt (Files)                             |          5 |     -5,723 |         -8 |        -30 |     -5,761 |
+| ..\..\Project Source Files\qrdt\css                                 |          1 |       -233 |          0 |        -51 |       -284 |
+| ..\..\Project Source Files\qrdt\views                               |          5 |       -499 |          0 |       -132 |       -631 |
+| css                                                                 |          1 |        281 |          0 |         61 |        342 |
+| views                                                               |          6 |        452 |          0 |        107 |        559 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                            | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\README.md          | Markdown   |         -1 |          0 |         -1 |         -2 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\css\style.ejs      | HTML       |       -233 |          0 |        -51 |       -284 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\package-lock.json  | JSON       |     -5,577 |          0 |         -1 |     -5,578 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\package.json       | JSON       |        -29 |          0 |         -1 |        -30 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\passport-config.js | JavaScript |        -26 |          0 |         -7 |        -33 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\server.js          | JavaScript |        -90 |         -8 |        -20 |       -118 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\admin.ejs    | HTML       |       -176 |          0 |        -50 |       -226 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\index.ejs    | HTML       |       -122 |          0 |        -45 |       -167 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\info.ejs     | HTML       |        -45 |          0 |         -6 |        -51 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\login.ejs    | HTML       |        -89 |          0 |        -22 |       -111 |
+| c:\Users\ronan\Desktop\Project Source Files\qrdt\views\register.ejs | HTML       |        -67 |          0 |         -9 |        -76 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\README.md                          | Markdown   |          5 |          0 |          2 |          7 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\css\style.ejs                      | HTML       |        281 |          0 |         61 |        342 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\package-lock.json                  | JSON       |      6,927 |          0 |          1 |      6,928 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\package.json                       | JSON       |         33 |          0 |          0 |         33 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\passport-config.js                 | JavaScript |         26 |          0 |          8 |         34 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\server.js                          | JavaScript |        237 |         13 |         62 |        312 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\account.ejs                  | HTML       |         58 |          0 |         11 |         69 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\admin.ejs                    | HTML       |         47 |          0 |         13 |         60 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\index.ejs                    | HTML       |        119 |          0 |         48 |        167 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\info.ejs                     | HTML       |         45 |          0 |          6 |         51 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\login.ejs                    | HTML       |        116 |          0 |         20 |        136 |
+| c:\Users\ronan\Desktop\qrdt\qrdt\views\register.ejs                 | HTML       |         67 |          0 |          9 |         76 |
+| Total                                                               |            |      1,506 |          5 |         28 |      1,539 |
++---------------------------------------------------------------------+------------+------------+------------+------------+------------+
